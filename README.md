@@ -20,7 +20,9 @@ The simulation uses a direct, brute-force N-body algorithm, where the force on e
 
 The gravitational force \(\vec{F}_{ij}\) exerted by a particle \(j\) on a particle \(i\) is given by Newton's law of universal gravitation:
 
-\[ \vec{F}_{ij} = G \frac{m_i m_j}{|\vec{r}_{ij}|^2} \frac{\vec{r}_{ij}}{|\vec{r}_{ij}|} \]
+```math
+\vec{F}_{ij} = G \frac{m_i m_j}{|\vec{r}_{ij}|^2} \frac{\vec{r}_{ij}}{|\vec{r}_{ij}|}
+```
 
 where:
 - \(G\) is the gravitational constant.
@@ -31,13 +33,17 @@ In this specific implementation, the masses (\(m_i\), \(m_j\)) and the gravitati
 
 The total force on particle \(i\) is the vector sum of the forces from all other particles:
 
-\[ \vec{F}_i = \sum_{j=1, j \neq i}^{N} \vec{F}_{ij} \]
+```math
+\vec{F}_i = \sum_{j=1, j \neq i}^{N} \vec{F}_{ij}
+```
 
 The acceleration of particle \(i\) is then \(\vec{a}_i = \vec{F}_i / m_i\).
 
 To avoid numerical instability when two particles get very close, a **softening factor** (\(\epsilon\)) is introduced to the distance calculation. The denominator becomes:
 
-\[ (|\vec{r}_{ij}|^2 + \epsilon^2)^{3/2} \]
+```math
+(|\vec{r}_{ij}|^2 + \epsilon^2)^{3/2}
+```
 
 This prevents the force from becoming infinite. In the code (`subroutine move`), this is implemented as `d_2 = dx_t*dx_t + dy_t*dy_t + dz_t*dz_t + softening`.
 
